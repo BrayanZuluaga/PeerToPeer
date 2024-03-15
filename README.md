@@ -1,5 +1,10 @@
 # PeerToPeerChat
 
+Cristian Camilo Ocampo Bravo
+Felipe Jiménez Londoño  
+Luisa Fernanda Andrade  
+Brayan David Zuluaga Cárdenas
+
 Este proyecto implementa un sistema de chat peer-to-peer (P2P) en Python utilizando sockets TCP/IP. Permite a los usuarios conectarse entre sí directamente sin necesidad de un servidor centralizado, lo que proporciona una comunicación descentralizada y más privada.
 
 ## Funcionalidades
