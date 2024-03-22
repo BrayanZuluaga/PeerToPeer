@@ -1,6 +1,11 @@
 # PeerToPeerChat
 
 Este proyecto implementa un sistema de chat peer-to-peer (P2P) en Python utilizando sockets TCP/IP. Permite a los usuarios conectarse entre sí directamente sin necesidad de un servidor centralizado, lo que proporciona una comunicación descentralizada y más privada.
+**TRABAJO ENTREGADO POR**:
+*Cristian Camilo Ocampo Bravo*, 
+*Felipe Jiménez Londoño*, 
+*Luisa Fernanda Andrade*, 
+*Brayan David Zuluaga Cárdenas*.
 
 ## Funcionalidades
 
@@ -12,13 +17,12 @@ Este proyecto implementa un sistema de chat peer-to-peer (P2P) en Python utiliza
 ## Explicacion Codigo
 
 
-Importar los módulos necesarios
+### Importar los módulos necesarios
 
     import socket
     import threading
     
-Inicializa la clase PeerToPeerChat con la dirección IP y puerto propios,
-así como las listas para almacenar vecinos y mensajes recibidos.
+### Inicializa la clase PeerToPeerChat con la dirección IP y puerto propios, así como las listas para almacenar vecinos y mensajes recibidos.
 
     class PeerToPeerChat:
        def __init__(self, own_ip, own_port):
@@ -27,7 +31,7 @@ así como las listas para almacenar vecinos y mensajes recibidos.
            self.neighbours = {}  # Almacena los nombres de los vecinos y sus direcciones IP y puertos
            self.received_messages = set()  # Almacena los mensajes recibidos para evitar reenviarlos
 
-Envía un mensaje al vecino especificado.
+### Envía un mensaje al vecino especificado.
 
        def send_message(self, destination_name, message):
            try:
@@ -48,7 +52,7 @@ Envía un mensaje al vecino especificado.
            except ConnectionRefusedError:
                print(f"Error: No se pudo conectar con {destination_name}")
 
-Maneja la conexión del cliente. Recibe mensajes entrantes.
+### Maneja la conexión del cliente. Recibe mensajes entrantes.
 
        def handle_client(self, client_socket, client_address):
            while True:
@@ -64,7 +68,7 @@ Maneja la conexión del cliente. Recibe mensajes entrantes.
                    print(f"Conexión perdida con {client_address}")
                    break
                    
-Inicia un servidor para escuchar conexiones entrantes de otros pares.
+### Inicia un servidor para escuchar conexiones entrantes de otros pares.
 
        def start_listening(self):
            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
@@ -77,13 +81,13 @@ Inicia un servidor para escuchar conexiones entrantes de otros pares.
                    thread.start()
                    print(f"Conexión establecida con {client_address}")
                    
-Agrega un nuevo vecino a la lista de vecinos.
+### Agrega un nuevo vecino a la lista de vecinos.
 
        def add_neighbour(self, neighbour_name, neighbour_ip, neighbour_port):
            self.neighbours[neighbour_name] = (neighbour_ip, neighbour_port)
            print(f"Vecino añadido: {neighbour_name} ({neighbour_ip}:{neighbour_port})")
 
-Muestra la lista de vecinos y su estado de conexión.
+### Muestra la lista de vecinos y su estado de conexión.
 
        def show_neighbours(self):
            print("\nLista de Vecinos:")
@@ -94,7 +98,7 @@ Muestra la lista de vecinos y su estado de conexión.
                    print(f"{name}: {ip}:{port} - Sin conexión")
                    
   
-Inicia el chat permitiendo al usuario enviar mensajes a los vecinos.
+### Inicia el chat permitiendo al usuario enviar mensajes a los vecinos.
 
        def start_chat(self):
            while True:
@@ -108,7 +112,7 @@ Inicia el chat permitiendo al usuario enviar mensajes a los vecinos.
                    self.send_message(destination_name, message)
 
 
-Verifica si hay conexión con un vecino específico.
+### Verifica si hay conexión con un vecino específico.
 
        def check_connection(self, ip, port):
            try:
@@ -119,43 +123,41 @@ Verifica si hay conexión con un vecino específico.
            except:
                return False
 
-if __name__ == "__main__":
-   own_ip = input("Ingrese su dirección IP: ")
-   own_port = int(input("Ingrese su puerto: "))
-   peer = PeerToPeerChat(own_ip, own_port)
-
-   # Inicia un hilo para que el servidor esté escuchando conexiones entrantes
-   t1 = threading.Thread(target=peer.start_listening)
-   t1.start()
-
-   print("\nServidor iniciado. Esperando conexiones...")
-
-   while True:
-       # Presenta un menú interactivo para que el usuario realice acciones
-       print("\nMENU:")
-       print("1. Agregar vecino")
-       print("2. Ver vecinos")
-       print("3. Enviar mensaje")
-       print("4. Salir")
-       choice = input("Ingrese el número de la opción que desea: ")
-       
-       if choice == "1":
-           # Agrega un nuevo vecino
-           neighbour_name = input("Ingrese el nombre del vecino: ")
-           neighbour_ip = input("Ingrese la dirección IP del vecino: ")
-           neighbour_port = int(input("Ingrese el puerto del vecino: "))
-           peer.add_neighbour(neighbour_name, neighbour_ip, neighbour_port)
-       elif choice == "2":
-           # Muestra la lista de vecinos y su estado de conexión
-           peer.show_neighbours()
-       elif choice == "3":
-           # Inicia el chat
-           peer.start_chat()
-       elif choice == "4":
-           # Sale del programa
-           break
-       else:
-           print("Opción no válida. Por favor ingrese un número del 1 al 4.")
+### Verifica si el script está siendo ejecutado directamente como un programa principal, en lugar de ser importado como un módulo en otro script.
+        
+    if __name__ == "__main__":
+       own_ip = input("Ingrese su dirección IP: ")
+       own_port = int(input("Ingrese su puerto: "))
+       peer = PeerToPeerChat(own_ip, own_port)
+       # Inicia un hilo para que el servidor esté escuchando conexiones entrantes
+       t1 = threading.Thread(target=peer.start_listening)
+       t1.start()
+       print("\nServidor iniciado. Esperando conexiones...")
+       while True:
+           # Presenta un menú interactivo para que el usuario realice acciones
+           print("\nMENU:")
+           print("1. Agregar vecino")
+           print("2. Ver vecinos")
+           print("3. Enviar mensaje")
+           print("4. Salir")
+           choice = input("Ingrese el número de la opción que desea: ")
+           if choice == "1":
+               # Agrega un nuevo vecino
+               neighbour_name = input("Ingrese el nombre del vecino: ")
+               neighbour_ip = input("Ingrese la dirección IP del vecino: ")
+               neighbour_port = int(input("Ingrese el puerto del vecino: "))
+               peer.add_neighbour(neighbour_name, neighbour_ip, neighbour_port)
+           elif choice == "2":
+               # Muestra la lista de vecinos y su estado de conexión
+               peer.show_neighbours()
+           elif choice == "3":
+               # Inicia el chat
+               peer.start_chat()
+           elif choice == "4":
+               # Sale del programa
+               break
+           else:
+               print("Opción no válida. Por favor ingrese un número del 1 al 4.")
 
 ## Ejecución
 
