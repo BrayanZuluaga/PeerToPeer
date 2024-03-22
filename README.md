@@ -7,6 +7,11 @@ Brayan David Zuluaga Cárdenas
 
 Este proyecto implementa un sistema de chat peer-to-peer (P2P) en Python utilizando sockets TCP/IP. Permite a los usuarios conectarse entre sí directamente sin necesidad de un servidor centralizado, lo que proporciona una comunicación descentralizada y más privada.
 
+## Objetivo de la practica
+
+Este proyecto fue desarrollado como parte de un ejercicio práctico para aprender sobre comunicación peer-to-peer y programación de sockets en Python. Proporciona una forma sencilla de establecer comunicación entre usuarios en una red local sin la necesidad de
+servidores centrales, lo que puede ser útil para aplicaciones de chat y colaboración entre pares.
+
 ## Funcionalidades
 
 - **Agregar Vecinos:** Los usuarios pueden agregar a otros usuarios como vecinos proporcionando su dirección IP y puerto.
